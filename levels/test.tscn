@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://xlorm7x7j2xt"]
+
+[ext_resource type="Texture2D" uid="uid://bhx3jn5tacgm3" path="res://icon.svg" id="1_72lju"]
+[ext_resource type="PackedScene" uid="uid://jlqwmvi3wjs5" path="res://player/player.tscn" id="1_lkjt4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkjt4"]
+albedo_texture = ExtResource("1_72lju")
+uv1_scale = Vector3(20, 20, 20)
+
+[node name="Node3D" type="Node3D" unique_id=963006657]
+
+[node name="CharacterBody3D" parent="." unique_id=2015978442 instance=ExtResource("1_lkjt4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.623839, 0)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=671997400]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=998607581]
+size = Vector3(100, 1, 100)
+material = SubResource("StandardMaterial3D_lkjt4")
