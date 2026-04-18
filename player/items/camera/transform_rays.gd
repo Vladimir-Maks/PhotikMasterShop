@@ -1,6 +1,7 @@
 extends Node
+class_name TransformRays
 
-@onready var rays_node : Node3D = %Rays
+@onready var rays_node : Node3D = %RaysPivot
 
 func transform_rays(new_global_transform : Transform3D) -> void:
 	if new_global_transform:
