@@ -14,7 +14,8 @@ func _physics_process(delta: float) -> void:
 		body.velocity += body.get_gravity() * delta
 
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (body.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).rotated(Vector3.UP, cam_pivot.global_rotation.y).normalized()
+	
+	var direction := (body.transform.basis * Vector3(input_dir.x, 0, input_dir.y).rotated(Vector3.UP, cam_pivot.global_rotation.y - body.global_rotation.y)).normalized()
 	
 	if direction:
 		body.velocity.x = direction.x * SPEED
