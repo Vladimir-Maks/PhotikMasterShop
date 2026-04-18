@@ -16,9 +16,7 @@ func _ready() -> void:
 	pass
 
 func _get_direction_diff() -> float:
-	var result := 1.0 - absf(wish_direction.length() - direction.length())
-	print(result)
-	return result
+	return 1.0 - absf(wish_direction.length() - direction.length())
 
 
 func _physics_process(delta: float) -> void:

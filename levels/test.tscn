@@ -3,11 +3,31 @@
 [ext_resource type="Texture2D" uid="uid://bhx3jn5tacgm3" path="res://icon.svg" id="1_72lju"]
 [ext_resource type="PackedScene" uid="uid://jlqwmvi3wjs5" path="res://player/player.tscn" id="1_lkjt4"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lkjt4"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_ny0t1"]
+sky_material = SubResource("ProceduralSkyMaterial_lkjt4")
+
+[sub_resource type="Environment" id="Environment_r4e4k"]
+background_mode = 2
+sky = SubResource("Sky_ny0t1")
+tonemap_mode = 2
+glow_enabled = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkjt4"]
 albedo_texture = ExtResource("1_72lju")
 uv1_scale = Vector3(20, 20, 20)
 
 [node name="Node3D" type="Node3D" unique_id=963006657]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1196670640]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=371985047]
+environment = SubResource("Environment_r4e4k")
 
 [node name="CharacterBody3D" parent="." unique_id=2015978442 instance=ExtResource("1_lkjt4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.623839, 0)
