@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cnw1gs866b7h5" path="res://player/items/camera/camera.tscn" id="1_g1dw6"]
 [ext_resource type="Script" uid="uid://dcnaq3pdl67u2" path="res://player/movement.gd" id="2_g1dw6"]
 [ext_resource type="Script" uid="uid://bmfc64ydmj6mh" path="res://player/camera.gd" id="2_yw30f"]
+[ext_resource type="Script" uid="uid://cosvh3hruxhlt" path="res://player/shoot.gd" id="4_yw30f"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rkbax"]
 
@@ -90,3 +91,4 @@ script = ExtResource("2_g1dw6")
 [node name="Action" type="Node" parent="Interface" unique_id=2145088225]
 
 [node name="Shoot" type="Node" parent="Interface/Action" unique_id=1268288786]
+script = ExtResource("4_yw30f")
