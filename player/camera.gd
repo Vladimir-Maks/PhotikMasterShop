@@ -58,7 +58,6 @@ func _process_distance(delta: float) -> void:
 	pitch = clamp(min_tilt + (max_tilt - min_tilt) * distance_percentage, min_tilt, max_tilt)
 	fov = clamp(min_fov + (max_fov * 2 - min_fov) * distance_percentage, min_fov, max_fov)
 	anchor.rotation.x = lerp_angle(anchor.rotation.x, deg_to_rad(-pitch), zoom_speed * delta)
-	print(to_distance)
 	
 
 func _follow_target(delta: float) -> void:
