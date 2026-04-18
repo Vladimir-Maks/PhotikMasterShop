@@ -1,7 +1,7 @@
 extends Node
 
 @onready var body : CharacterBody3D = $"../.."
-@onready var cam_pivot : Node3D = %CameraPivot
+@onready var cam : Node3D = %Camera3D
 const SPEED := 5.0
 const JUMP_VELOCITY := 4.5
 const FRICTION_DELTA := 0.3
@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
-	wish_direction = (body.transform.basis * Vector3(input_dir.x, 0, input_dir.y).rotated(Vector3.UP, cam_pivot.global_rotation.y - body.global_rotation.y)).normalized()
+	wish_direction = (body.transform.basis * Vector3(input_dir.x, 0, input_dir.y).rotated(Vector3.UP, cam.global_rotation.y - body.global_rotation.y)).normalized()
 	
 	direction = direction.lerp(wish_direction, ROTATION_DELTA)
 	

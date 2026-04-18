@@ -22,7 +22,7 @@ mesh = SubResource("BoxMesh_rkbax")
 [node name="Hands" type="Node3D" parent="." unique_id=1849246757]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46412385, 0.22703514, -0.57325536)
 
-[node name="Node3D" parent="Hands" unique_id=399955640 instance=ExtResource("1_g1dw6")]
+[node name="CameraItem" parent="Hands" unique_id=399955640 instance=ExtResource("1_g1dw6")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Hands" unique_id=2052699844]
 transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0, 0)
@@ -37,11 +37,9 @@ mesh = SubResource("CapsuleMesh_rkbax")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=624961767]
 shape = SubResource("CapsuleShape3D_sh265")
 
-[node name="CameraAnchor" type="Node3D" parent="." unique_id=172926156]
-
-[node name="CameraPivot" type="Node3D" parent="CameraAnchor" unique_id=810318355]
+[node name="PlayerCameraTarget" type="Marker3D" parent="." unique_id=1975022584]
 unique_name_in_owner = true
-transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 2, 3, 2)
+transform = Transform3D(0.9999999, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999999, 0, 0, 0)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1895561039]
 
@@ -69,12 +67,23 @@ render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/CamSubViewport" unique_id=1792527092]
 unique_name_in_owner = true
-transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 2, 3, 2)
+transform = Transform3D(0.7071068, -0.6123724, 0.35355344, 5.1619143e-08, 0.5000001, 0.8660253, -0.7071068, -0.6123724, 0.35355353, 0, 0, 0)
 
 [node name="Interface" type="Node" parent="." unique_id=326599862]
 
-[node name="Camera" type="Node" parent="Interface" unique_id=417932803]
+[node name="Camera" type="Node" parent="Interface" unique_id=417932803 node_paths=PackedStringArray("target")]
 script = ExtResource("2_yw30f")
+target = NodePath("../../PlayerCameraTarget")
+
+[node name="CameraAnchor" type="SpringArm3D" parent="Interface/Camera" unique_id=1319091088]
+unique_name_in_owner = true
+transform = Transform3D(0.70710677, -0.6123724, 0.35355335, 0, 0.49999994, 0.86602545, -0.70710677, -0.6123724, 0.35355335, 0, 0, 0)
+collision_mask = 0
+spring_length = 15.0
+
+[node name="CameraPivot" type="Marker3D" parent="Interface/Camera/CameraAnchor" unique_id=1087885351]
+unique_name_in_owner = true
+transform = Transform3D(1, 5.9604645e-08, 8.940697e-08, 0, 1, -1.1920929e-07, 5.9604645e-08, 1.1920929e-07, 1.0000001, 0, 0, 0)
 
 [node name="Movement" type="Node" parent="Interface" unique_id=1764695082]
 script = ExtResource("2_g1dw6")
