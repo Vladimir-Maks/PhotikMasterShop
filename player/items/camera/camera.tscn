@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cnw1gs866b7h5"]
 
 [ext_resource type="Script" uid="uid://c8x0o1kqyt1te" path="res://player/items/camera/shot.gd" id="1_7dfrm"]
+[ext_resource type="Script" uid="uid://d3t2lmqo1rodt" path="res://player/items/camera/camera.gd" id="1_p5spu"]
 [ext_resource type="Script" uid="uid://ceeehuajjebm8" path="res://player/items/camera/transform_rays.gd" id="2_367m2"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_dkyxo"]
@@ -27,9 +28,14 @@ size = Vector3(0.1, 0.06, 0.05)
 [sub_resource type="BoxMesh" id="BoxMesh_rl5ao"]
 size = Vector3(0.1, 0.1, 0.05)
 
-[node name="Node3D" type="Node3D" unique_id=399955640]
+[sub_resource type="SphereMesh" id="SphereMesh_p5spu"]
+radius = 0.1
+height = 0.2
+radial_segments = 8
+rings = 8
 
-[node name="Node3D" type="Node3D" parent="." unique_id=1652055435]
+[node name="Node3D" type="Node3D" unique_id=399955640]
+script = ExtResource("1_p5spu")
 
 [node name="PlaceholderModel" type="Node3D" parent="." unique_id=579748801]
 
@@ -62,10 +68,20 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
 gizmo_extents = 1.0
 
+[node name="FocalPoint" type="Marker3D" parent="RaysPivot" unique_id=550358123]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.119755834)
+gizmo_extents = 1.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RaysPivot/FocalPoint" unique_id=734314125]
+mesh = SubResource("SphereMesh_p5spu")
+
 [node name="Interface" type="Node" parent="." unique_id=1115063143]
 
-[node name="Shot" type="Node" parent="Interface" unique_id=446580279]
+[node name="CameraShot" type="Node" parent="Interface" unique_id=446580279]
+unique_name_in_owner = true
 script = ExtResource("1_7dfrm")
 
 [node name="TransformRays" type="Node" parent="Interface" unique_id=2055993967]
+unique_name_in_owner = true
 script = ExtResource("2_367m2")
