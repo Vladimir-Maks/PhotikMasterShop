@@ -27,7 +27,7 @@ size = Vector3(0.1, 0.06, 0.05)
 [sub_resource type="BoxMesh" id="BoxMesh_rl5ao"]
 size = Vector3(0.1, 0.1, 0.05)
 
-[node name="Node3D" type="Node3D" unique_id=399955640]
+[node name="CameraItem" type="Node3D" unique_id=399955640]
 
 [node name="Node3D" type="Node3D" parent="." unique_id=1652055435]
 
