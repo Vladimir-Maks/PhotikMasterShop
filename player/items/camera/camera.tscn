@@ -1,11 +1,19 @@
 [gd_scene format=3 uid="uid://cnw1gs866b7h5"]
 
+[ext_resource type="Script" uid="uid://c8x0o1kqyt1te" path="res://player/items/camera/shot.gd" id="1_7dfrm"]
+[ext_resource type="Script" uid="uid://ceeehuajjebm8" path="res://player/items/camera/transform_rays.gd" id="2_367m2"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_dkyxo"]
 size = Vector3(0.35, 0.3, 0.16)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_7dfrm"]
 top_radius = 0.1
 bottom_radius = 0.1
+height = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_p5spu"]
+top_radius = 0.08
+bottom_radius = 0.08
 height = 0.3
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_367m2"]
@@ -32,6 +40,10 @@ mesh = SubResource("BoxMesh_dkyxo")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18055642, 0, 0)
 mesh = SubResource("CylinderMesh_7dfrm")
 
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="PlaceholderModel" unique_id=2142573092]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1694084, 0, -0.00027278066)
+mesh = SubResource("CylinderMesh_p5spu")
+
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="PlaceholderModel" unique_id=1575189108]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0.0006814599, 0, -0.14981292)
 mesh = SubResource("CylinderMesh_367m2")
@@ -45,48 +57,15 @@ transform = Transform3D(1, 0, 0, 0, 0.6, 0, 0, -0.6, 1, 0, 0.2303834, -0.0616645
 rotation_edit_mode = 2
 mesh = SubResource("BoxMesh_rl5ao")
 
-[node name="Rays" type="Node3D" parent="." unique_id=1186735991]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0006814599, -4.440892e-16, -0.31273627)
-
-[node name="RayCast3D" type="RayCast3D" parent="Rays" unique_id=1289303693]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94837964, 0)
-target_position = Vector3(0, 0, -3)
-
-[node name="RayCast3D2" type="RayCast3D" parent="Rays" unique_id=1641040966]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9318937, 0)
-target_position = Vector3(0, 0, -3)
-
-[node name="RayCast3D3" type="RayCast3D" parent="Rays" unique_id=428566109]
-target_position = Vector3(0, 0, -3)
-
-[node name="RayCast3D4" type="RayCast3D" parent="Rays" unique_id=71958602]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.81066585, 0, 0)
-target_position = Vector3(0, 0, -3)
-
-[node name="RayCast3D5" type="RayCast3D" parent="Rays" unique_id=1406954365]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.666481, 0, 0)
-target_position = Vector3(0, 0, -3)
-
-[node name="RayCast3D6" type="RayCast3D" parent="Rays" unique_id=1362976103]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43140185, 0.4525395, 0)
-target_position = Vector3(0, 0, -3)
-
-[node name="RayCast3D7" type="RayCast3D" parent="Rays" unique_id=9866538]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.34867382, 0.43733007, 2.3841858e-07)
-target_position = Vector3(0, 0, -3)
-
-[node name="RayCast3D8" type="RayCast3D" parent="Rays" unique_id=1388702865]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46834618, -0.4726345, 2.3841858e-07)
-target_position = Vector3(0, 0, -3)
-
-[node name="RayCast3D9" type="RayCast3D" parent="Rays" unique_id=416774507]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.48638386, -0.56403095, 2.3841858e-07)
-target_position = Vector3(0, 0, -3)
+[node name="RaysPivot" type="Marker3D" parent="." unique_id=29751268]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+gizmo_extents = 1.0
 
 [node name="Interface" type="Node" parent="." unique_id=1115063143]
 
 [node name="Shot" type="Node" parent="Interface" unique_id=446580279]
+script = ExtResource("1_7dfrm")
 
-[node name="RenderImage" type="Node" parent="Interface" unique_id=280097517]
-
-[node name="IsHit" type="Node" parent="Interface" unique_id=245995589]
+[node name="TransformRays" type="Node" parent="Interface" unique_id=2055993967]
+script = ExtResource("2_367m2")

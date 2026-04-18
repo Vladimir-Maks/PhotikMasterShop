@@ -1,13 +1,31 @@
 [gd_scene format=3 uid="uid://jlqwmvi3wjs5"]
 
+[ext_resource type="PackedScene" uid="uid://cnw1gs866b7h5" path="res://player/items/camera/camera.tscn" id="1_g1dw6"]
 [ext_resource type="Script" uid="uid://dcnaq3pdl67u2" path="res://player/movement.gd" id="2_g1dw6"]
 [ext_resource type="Script" uid="uid://bmfc64ydmj6mh" path="res://player/camera.gd" id="2_yw30f"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rkbax"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g1dw6"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rkbax"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=2015978442]
+
+[node name="eye" type="MeshInstance3D" parent="." unique_id=1084157919]
+transform = Transform3D(0.38, 0, 0, 0, 0.38, 0, 0, 0, 0.38, 0, 0.5774417, -0.4588905)
+mesh = SubResource("BoxMesh_rkbax")
+
+[node name="Hands" type="Node3D" parent="." unique_id=1849246757]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46412385, 0.22703514, -0.57325536)
+
+[node name="Node3D" parent="Hands" unique_id=399955640 instance=ExtResource("1_g1dw6")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Hands" unique_id=2052699844]
+transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0, 0)
+mesh = SubResource("BoxMesh_g1dw6")
 
 [node name="PhotoSubViewport" type="SubViewport" parent="." unique_id=836556738]
 size = Vector2i(1152, 648)
@@ -33,6 +51,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
+
+[node name="FPVSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=826408230]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_clear_mode = 2
+render_target_update_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/FPVSubViewport" unique_id=1815120584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5774417, -0.4588905)
 
 [node name="CamSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1443370904]
 handle_input_locally = false
