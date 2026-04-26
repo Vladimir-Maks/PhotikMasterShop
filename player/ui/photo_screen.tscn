@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cn8juecy548cq"]
+
+[ext_resource type="Script" uid="uid://027y7cnwr43c" path="res://player/ui/photo_screen.gd" id="1_2rw6d"]
+[ext_resource type="Texture2D" uid="uid://bhx3jn5tacgm3" path="res://icon.svg" id="1_ftpvu"]
+
+[sub_resource type="Animation" id="Animation_2rw6d"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_swo00"]
+resource_name = "fade_out"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(1, 1),
+"points": PackedFloat32Array(1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6k6bk"]
+_data = {
+&"RESET": SubResource("Animation_2rw6d"),
+&"fade_out": SubResource("Animation_swo00")
+}
+
+[node name="PhotoScreen" type="MarginContainer" unique_id=172665628]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2rw6d")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1486241342]
+layout_mode = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 120
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 120
+
+[node name="PhotoRect" type="TextureRect" parent="MarginContainer" unique_id=1669177691]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("1_ftpvu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Timer" type="Timer" parent="MarginContainer/PhotoRect" unique_id=1466792751]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/PhotoRect" unique_id=639574930]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_6k6bk")
+
+[connection signal="timeout" from="MarginContainer/PhotoRect/Timer" to="." method="_on_timer_timeout"]

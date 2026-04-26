@@ -17,7 +17,7 @@ func _ready() -> void:
 		var point := guide_file.get_point_position(i) * POINT_SCALE
 		rays_guide.append(Vector3(point.x, point.y, 0))
 
-func shot() -> void:
+func shot() -> int:
 	var results : Array[Dictionary] = [] # intersect_ray return value is ass
 	var space_state := pivot.get_world_3d().direct_space_state
 	
@@ -31,5 +31,5 @@ func shot() -> void:
 		
 		var result := space_state.intersect_ray(query)
 		results.append(result)
-		if result:
-			print("success")
+	
+	return results.size()
