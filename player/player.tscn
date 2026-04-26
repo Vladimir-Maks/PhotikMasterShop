@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cnw1gs866b7h5" path="res://player/items/camera/camera.tscn" id="1_g1dw6"]
 [ext_resource type="Script" uid="uid://dcnaq3pdl67u2" path="res://player/movement.gd" id="2_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://cn8juecy548cq" path="res://player/ui/photo_screen.tscn" id="2_qjkh3"]
 [ext_resource type="Script" uid="uid://bmfc64ydmj6mh" path="res://player/camera.gd" id="2_yw30f"]
 [ext_resource type="Script" uid="uid://cosvh3hruxhlt" path="res://player/shoot.gd" id="4_yw30f"]
 
@@ -23,6 +24,7 @@ mesh = SubResource("BoxMesh_rkbax")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46412385, 0.22703514, -0.57325536)
 
 [node name="CameraItem" parent="Hands" unique_id=399955640 instance=ExtResource("1_g1dw6")]
+unique_name_in_owner = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Hands" unique_id=2052699844]
 transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0, 0)
@@ -49,16 +51,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-stretch = true
 
 [node name="FPVSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=826408230]
+unique_name_in_owner = true
 handle_input_locally = false
-size = Vector2i(1152, 648)
-render_target_clear_mode = 2
+size = Vector2i(800, 600)
+render_target_clear_mode = 1
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/FPVSubViewport" unique_id=1815120584]
+[node name="FpsCamera3D" type="Camera3D" parent="SubViewportContainer/FPVSubViewport" unique_id=1815120584]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5774417, -0.4588905)
+fov = 40.0
+far = 1000.0
 
 [node name="CamSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1443370904]
 handle_input_locally = false
@@ -68,6 +73,10 @@ render_target_update_mode = 4
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/CamSubViewport" unique_id=1792527092]
 unique_name_in_owner = true
 transform = Transform3D(0.7071068, -0.6123724, 0.35355344, 5.1619143e-08, 0.5000001, 0.8660253, -0.7071068, -0.6123724, 0.35355353, 0, 0, 0)
+
+[node name="PhotoScreen" parent="SubViewportContainer" unique_id=172665628 instance=ExtResource("2_qjkh3")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="Interface" type="Node" parent="." unique_id=326599862]
 
