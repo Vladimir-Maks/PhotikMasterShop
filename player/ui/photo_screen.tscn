@@ -2,33 +2,25 @@
 
 [ext_resource type="Script" uid="uid://027y7cnwr43c" path="res://player/ui/photo_screen.gd" id="1_2rw6d"]
 [ext_resource type="Texture2D" uid="uid://bhx3jn5tacgm3" path="res://icon.svg" id="1_ftpvu"]
+[ext_resource type="StyleBox" uid="uid://28qryrtpxp5u" path="res://player/ui/photo_bg_style.tres" id="2_swo00"]
+[ext_resource type="StyleBox" uid="uid://dgauj6qc3x7gm" path="res://player/ui/photo_style.tres" id="3_6k6bk"]
 
 [sub_resource type="Animation" id="Animation_2rw6d"]
 length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate:a")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
 
 [sub_resource type="Animation" id="Animation_swo00"]
 resource_name = "fade_out"
-tracks/0/type = "bezier"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate:a")
-tracks/0/interp = 1
+tracks/0/path = NodePath("%PhotoRect/../..:modulate:a")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(1, 1),
-"points": PackedFloat32Array(1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 1)
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6k6bk"]
@@ -45,27 +37,42 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2rw6d")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1486241342]
+[node name="BorderMarginContainer" type="MarginContainer" parent="." unique_id=647092455]
 layout_mode = 2
-theme_override_constants/margin_left = 120
+theme_override_constants/margin_left = 358
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 358
+theme_override_constants/margin_bottom = 48
+
+[node name="Panel" type="Panel" parent="BorderMarginContainer" unique_id=467151046]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_swo00")
+
+[node name="PhotoMarginContainer" type="MarginContainer" parent="." unique_id=1486241342]
+layout_mode = 2
+theme_override_constants/margin_left = 376
 theme_override_constants/margin_top = 120
-theme_override_constants/margin_right = 120
+theme_override_constants/margin_right = 376
 theme_override_constants/margin_bottom = 120
 
-[node name="PhotoRect" type="TextureRect" parent="MarginContainer" unique_id=1669177691]
+[node name="Panel" type="Panel" parent="PhotoMarginContainer" unique_id=236333822]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_6k6bk")
+
+[node name="PhotoRect" type="TextureRect" parent="PhotoMarginContainer" unique_id=1669177691]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("1_ftpvu")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Timer" type="Timer" parent="MarginContainer/PhotoRect" unique_id=1466792751]
+[node name="Timer" type="Timer" parent="PhotoMarginContainer/PhotoRect" unique_id=1466792751]
 unique_name_in_owner = true
 wait_time = 3.0
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/PhotoRect" unique_id=639574930]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PhotoMarginContainer/PhotoRect" unique_id=639574930]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_6k6bk")
 
-[connection signal="timeout" from="MarginContainer/PhotoRect/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PhotoMarginContainer/PhotoRect/Timer" to="." method="_on_timer_timeout"]

@@ -5,12 +5,14 @@
 [ext_resource type="PackedScene" uid="uid://cn8juecy548cq" path="res://player/ui/photo_screen.tscn" id="2_qjkh3"]
 [ext_resource type="Script" uid="uid://bmfc64ydmj6mh" path="res://player/camera.gd" id="2_yw30f"]
 [ext_resource type="Script" uid="uid://cosvh3hruxhlt" path="res://player/shoot.gd" id="4_yw30f"]
+[ext_resource type="Script" uid="uid://lk73snr6p0i8" path="res://player/photo_camera.gd" id="5_boad6"]
 [ext_resource type="Script" uid="uid://dabwpe6q48abn" path="res://player/item_intercations.gd" id="6_g6k8r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rkbax"]
 
 [sub_resource type="Animation" id="Animation_qjkh3"]
 resource_name = "equip"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -18,14 +20,15 @@ tracks/0/path = NodePath("%CameraItem:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666669, 0.36666667),
+"times": PackedFloat32Array(0, 0.2, 0.36),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(-0.49315208, -0.3455208, 0), Vector3(-0.41238618, -0.13820831, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, -0.67216784), Vector3(0, 0.175, -0.672), Vector3(0.3406328, 0.26291955, -0.5782655)]
 }
 
 [sub_resource type="Animation" id="Animation_g6k8r"]
 resource_name = "unequip"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,10 +36,10 @@ tracks/0/path = NodePath("%CameraItem:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.16666669, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.36),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.41238618, -0.13820831, 0), Vector3(-0.49315208, -0.3455208, 0)]
+"values": [Vector3(0.3406328, 0.26291955, -0.5782655), Vector3(0, 0.175, -0.672), Vector3(0, 0, -0.67216784)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_boad6"]
@@ -56,18 +59,15 @@ transform = Transform3D(0.38, 0, 0, 0, 0.38, 0, 0, 0, 0.38, 0, 0.5774417, -0.458
 mesh = SubResource("BoxMesh_rkbax")
 
 [node name="Hands" type="Node3D" parent="." unique_id=1849246757]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46412385, 0.22703514, -0.57325536)
+unique_name_in_owner = true
 
 [node name="CameraItem" parent="Hands" unique_id=399955640 instance=ExtResource("1_g1dw6")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49315208, -0.3455208, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.67216784)
 
 [node name="CameraItemAnimations" type="AnimationPlayer" parent="Hands" unique_id=77678868]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_boad6")
-
-[node name="PhotoSubViewport" type="SubViewport" parent="." unique_id=836556738]
-size = Vector2i(1152, 648)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1255720382]
 mesh = SubResource("CapsuleMesh_rkbax")
@@ -81,41 +81,67 @@ transform = Transform3D(0.9999999, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999999, 0, 0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1895561039]
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1790319805]
+[node name="Viewport" type="CanvasLayer" parent="." unique_id=664075513]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Viewport" unique_id=1790319805]
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CamSubViewport" type="SubViewport" parent="Viewport/SubViewportContainer" unique_id=1443370904]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Viewport/SubViewportContainer/CamSubViewport" unique_id=1792527092]
+unique_name_in_owner = true
+transform = Transform3D(0.7071068, -0.6123724, 0.35355344, 5.1619143e-08, 0.5000001, 0.8660253, -0.7071068, -0.6123724, 0.35355353, 0, 0, 0)
+
+[node name="PhotoSubViewport" type="SubViewport" parent="Viewport/SubViewportContainer" unique_id=1803773079]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="PhotoScreen" parent="Viewport/SubViewportContainer/PhotoSubViewport" unique_id=172665628 instance=ExtResource("2_qjkh3")]
+unique_name_in_owner = true
+
+[node name="Control" type="Control" parent="Viewport" unique_id=1892876141]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -204.0
+offset_right = 200.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPVSubViewportContainer" type="SubViewportContainer" parent="Viewport/Control" unique_id=1751259741]
+unique_name_in_owner = true
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FPVSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=826408230]
+[node name="FPVSubViewport" type="SubViewport" parent="Viewport/Control/FPVSubViewportContainer" unique_id=826408230]
 unique_name_in_owner = true
 handle_input_locally = false
-size = Vector2i(800, 600)
+size = Vector2i(400, 408)
 render_target_clear_mode = 1
 render_target_update_mode = 4
 
-[node name="FpsCamera3D" type="Camera3D" parent="SubViewportContainer/FPVSubViewport" unique_id=1815120584]
+[node name="FpsCamera3D" type="Camera3D" parent="Viewport/Control/FPVSubViewportContainer/FPVSubViewport" unique_id=1815120584]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5774417, -0.4588905)
 fov = 40.0
 far = 1000.0
-
-[node name="CamSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1443370904]
-handle_input_locally = false
-size = Vector2i(1152, 648)
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/CamSubViewport" unique_id=1792527092]
-unique_name_in_owner = true
-transform = Transform3D(0.7071068, -0.6123724, 0.35355344, 5.1619143e-08, 0.5000001, 0.8660253, -0.7071068, -0.6123724, 0.35355353, 0, 0, 0)
-
-[node name="PhotoSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1803773079]
-transparent_bg = true
-size = Vector2i(1152, 648)
-
-[node name="PhotoScreen" parent="SubViewportContainer/PhotoSubViewport" unique_id=172665628 instance=ExtResource("2_qjkh3")]
-unique_name_in_owner = true
 
 [node name="Interface" type="Node" parent="." unique_id=326599862]
 
@@ -137,10 +163,12 @@ transform = Transform3D(1, 5.9604645e-08, 8.940697e-08, 0, 1, -1.1920929e-07, 5.
 script = ExtResource("2_g1dw6")
 
 [node name="PhotoCamera" type="Node" parent="Interface" unique_id=2092572066]
+script = ExtResource("5_boad6")
 
 [node name="Action" type="Node" parent="Interface" unique_id=2145088225]
 
 [node name="Shoot" type="Node" parent="Interface/Action" unique_id=1268288786]
+unique_name_in_owner = true
 script = ExtResource("4_yw30f")
 
 [node name="ShootTimer" type="Timer" parent="Interface/Action/Shoot" unique_id=631129391]
