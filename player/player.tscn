@@ -5,10 +5,45 @@
 [ext_resource type="PackedScene" uid="uid://cn8juecy548cq" path="res://player/ui/photo_screen.tscn" id="2_qjkh3"]
 [ext_resource type="Script" uid="uid://bmfc64ydmj6mh" path="res://player/camera.gd" id="2_yw30f"]
 [ext_resource type="Script" uid="uid://cosvh3hruxhlt" path="res://player/shoot.gd" id="4_yw30f"]
+[ext_resource type="Script" uid="uid://dabwpe6q48abn" path="res://player/item_intercations.gd" id="6_g6k8r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rkbax"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_g1dw6"]
+[sub_resource type="Animation" id="Animation_qjkh3"]
+resource_name = "equip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%CameraItem:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666669, 0.36666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.49315208, -0.3455208, 0), Vector3(-0.41238618, -0.13820831, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_g6k8r"]
+resource_name = "unequip"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%CameraItem:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666669, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.41238618, -0.13820831, 0), Vector3(-0.49315208, -0.3455208, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_boad6"]
+_data = {
+&"equip": SubResource("Animation_qjkh3"),
+&"unequip": SubResource("Animation_g6k8r")
+}
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rkbax"]
 
@@ -25,10 +60,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.46412385, 0.22703514, -0.57
 
 [node name="CameraItem" parent="Hands" unique_id=399955640 instance=ExtResource("1_g1dw6")]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49315208, -0.3455208, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Hands" unique_id=2052699844]
-transform = Transform3D(0.18, 0, 0, 0, 0.18, 0, 0, 0, 0.18, 0, 0, 0)
-mesh = SubResource("BoxMesh_g1dw6")
+[node name="CameraItemAnimations" type="AnimationPlayer" parent="Hands" unique_id=77678868]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_boad6")
 
 [node name="PhotoSubViewport" type="SubViewport" parent="." unique_id=836556738]
 size = Vector2i(1152, 648)
@@ -74,9 +110,12 @@ render_target_update_mode = 4
 unique_name_in_owner = true
 transform = Transform3D(0.7071068, -0.6123724, 0.35355344, 5.1619143e-08, 0.5000001, 0.8660253, -0.7071068, -0.6123724, 0.35355353, 0, 0, 0)
 
-[node name="PhotoScreen" parent="SubViewportContainer" unique_id=172665628 instance=ExtResource("2_qjkh3")]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1803773079]
+transparent_bg = true
+size = Vector2i(1152, 648)
+
+[node name="PhotoScreen" parent="SubViewportContainer/SubViewport" unique_id=172665628 instance=ExtResource("2_qjkh3")]
 unique_name_in_owner = true
-layout_mode = 2
 
 [node name="Interface" type="Node" parent="." unique_id=326599862]
 
@@ -97,7 +136,25 @@ transform = Transform3D(1, 5.9604645e-08, 8.940697e-08, 0, 1, -1.1920929e-07, 5.
 [node name="Movement" type="Node" parent="Interface" unique_id=1764695082]
 script = ExtResource("2_g1dw6")
 
+[node name="PhotoCamera" type="Node" parent="Interface" unique_id=2092572066]
+
 [node name="Action" type="Node" parent="Interface" unique_id=2145088225]
 
 [node name="Shoot" type="Node" parent="Interface/Action" unique_id=1268288786]
 script = ExtResource("4_yw30f")
+
+[node name="ShootTimer" type="Timer" parent="Interface/Action/Shoot" unique_id=631129391]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true
+
+[node name="ItemIntercations" type="Node" parent="Interface/Action" unique_id=2006988214]
+unique_name_in_owner = true
+script = ExtResource("6_g6k8r")
+
+[node name="EquipTimer" type="Timer" parent="Interface/Action/ItemIntercations" unique_id=1690731028]
+unique_name_in_owner = true
+wait_time = 0.36
+one_shot = true
+
+[connection signal="timeout" from="Interface/Action/ItemIntercations/EquipTimer" to="Interface/Action/ItemIntercations" method="_on_equip_timer_timeout"]
