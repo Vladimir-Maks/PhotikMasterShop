@@ -110,11 +110,11 @@ render_target_update_mode = 4
 unique_name_in_owner = true
 transform = Transform3D(0.7071068, -0.6123724, 0.35355344, 5.1619143e-08, 0.5000001, 0.8660253, -0.7071068, -0.6123724, 0.35355353, 0, 0, 0)
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1803773079]
+[node name="PhotoSubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1803773079]
 transparent_bg = true
 size = Vector2i(1152, 648)
 
-[node name="PhotoScreen" parent="SubViewportContainer/SubViewport" unique_id=172665628 instance=ExtResource("2_qjkh3")]
+[node name="PhotoScreen" parent="SubViewportContainer/PhotoSubViewport" unique_id=172665628 instance=ExtResource("2_qjkh3")]
 unique_name_in_owner = true
 
 [node name="Interface" type="Node" parent="." unique_id=326599862]

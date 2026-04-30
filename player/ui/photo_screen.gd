@@ -16,7 +16,6 @@ func show_photo(new_photo : Texture2D, want_fadeout : bool = true) -> void:
 	
 	if want_fadeout:
 		timer.start()
-	
 
 func _on_timer_timeout() -> void:
 	fade_out.play("fade_out")
