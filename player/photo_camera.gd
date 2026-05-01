@@ -22,26 +22,23 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	fps_camera.global_transform = camera_item.global_transform
 	
-	if item_interactions.is_equiped():
-		if Input.is_action_just_pressed("ui_accept"):
-			match state:
-				IN_HAND:
-					state = TAKING_AIM
-					fpv_sub_viewport_container.show()
-				TAKING_AIM:
-					pass
+	if Input.is_action_just_pressed("ui_accept"):
+		match state:
+			IN_HAND:
+				state = TAKING_AIM
+				fpv_sub_viewport_container.show()
+			TAKING_AIM:
+				pass
 	
-		if Input.is_action_just_released("ui_accept"):
-			match state:
-				IN_HAND:
-					pass
-				TAKING_AIM:
-					action_shoot.shoot()
-					clear_take_aim()
-	else:
-		clear_take_aim()
+	if Input.is_action_just_released("ui_accept"):
+		match state:
+			IN_HAND:
+				pass
+			TAKING_AIM:
+				action_shoot.shoot()
+				clear_take_aim()
 	
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") or not item_interactions.is_equiped():
 		clear_take_aim()
 
 func clear_take_aim() -> void:
