@@ -120,24 +120,25 @@ offset_right = 200.0
 offset_bottom = 204.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="FPVSubViewportContainer" type="SubViewportContainer" parent="Viewport/Control" unique_id=1751259741]
+[node name="CenterContainer" type="CenterContainer" parent="Viewport/Control" unique_id=2059072943]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FPVSubViewportContainer" type="SubViewportContainer" parent="Viewport/Control/CenterContainer" unique_id=1751259741]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 
-[node name="FPVSubViewport" type="SubViewport" parent="Viewport/Control/FPVSubViewportContainer" unique_id=826408230]
+[node name="FPVSubViewport" type="SubViewport" parent="Viewport/Control/CenterContainer/FPVSubViewportContainer" unique_id=826408230]
 unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(400, 408)
 render_target_clear_mode = 1
 render_target_update_mode = 4
 
-[node name="FpsCamera3D" type="Camera3D" parent="Viewport/Control/FPVSubViewportContainer/FPVSubViewport" unique_id=1815120584]
+[node name="FpsCamera3D" type="Camera3D" parent="Viewport/Control/CenterContainer/FPVSubViewportContainer/FPVSubViewport" unique_id=1815120584]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5774417, -0.4588905)
 fov = 40.0
@@ -162,9 +163,6 @@ transform = Transform3D(1, 5.9604645e-08, 8.940697e-08, 0, 1, -1.1920929e-07, 5.
 [node name="Movement" type="Node" parent="Interface" unique_id=1764695082]
 script = ExtResource("2_g1dw6")
 
-[node name="PhotoCamera" type="Node" parent="Interface" unique_id=2092572066]
-script = ExtResource("5_boad6")
-
 [node name="Action" type="Node" parent="Interface" unique_id=2145088225]
 
 [node name="Shoot" type="Node" parent="Interface/Action" unique_id=1268288786]
@@ -184,5 +182,8 @@ script = ExtResource("6_g6k8r")
 unique_name_in_owner = true
 wait_time = 0.36
 one_shot = true
+
+[node name="PhotoCamera" type="Node" parent="Interface/Action" unique_id=2092572066]
+script = ExtResource("5_boad6")
 
 [connection signal="timeout" from="Interface/Action/ItemIntercations/EquipTimer" to="Interface/Action/ItemIntercations" method="_on_equip_timer_timeout"]

@@ -5,7 +5,7 @@ class_name ActionShoot
 @onready var camera_item : CameraItem = %CameraItem
 @onready var fps_subviewport : SubViewport = %FPVSubViewport
 @onready var photo_screen : PhotoScreen = %PhotoScreen
-@onready var fps_camera : Camera3D = %FpsCamera3D
+
 @onready var item_interactions : ItemInteractions = %ItemIntercations
 
 @onready var shoot_timer : Timer = %ShootTimer
@@ -16,7 +16,7 @@ func shoot() -> void:
 	if shoot_timer.time_left > 0.0:
 		return
 		
-	fps_camera.global_transform = camera_item.global_transform
+	
 	var result := camera_item.camera_shot.shot()
 	shoot_timer.start()
 	if result:
