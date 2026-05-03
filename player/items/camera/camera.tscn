@@ -28,11 +28,10 @@ size = Vector3(0.1, 0.06, 0.05)
 [sub_resource type="BoxMesh" id="BoxMesh_rl5ao"]
 size = Vector3(0.1, 0.1, 0.05)
 
-[sub_resource type="SphereMesh" id="SphereMesh_p5spu"]
-radius = 0.1
-height = 0.2
-radial_segments = 8
-rings = 8
+[sub_resource type="CylinderMesh" id="CylinderMesh_rl5ao"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.01
 
 [node name="Node3D" type="Node3D" unique_id=399955640]
 script = ExtResource("1_p5spu")
@@ -74,7 +73,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.119755834)
 gizmo_extents = 1.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RaysPivot/FocalPoint" unique_id=734314125]
-mesh = SubResource("SphereMesh_p5spu")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("CylinderMesh_rl5ao")
 
 [node name="Interface" type="Node" parent="." unique_id=1115063143]
 
