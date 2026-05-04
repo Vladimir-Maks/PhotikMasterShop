@@ -34,8 +34,11 @@ var distance_percentage: float
 @export var max_fov: float = 75.0
 var fov: float = 75.0
 
+var is_rotating: bool = false
+var last_mouse_pos: Vector2 = Vector2.ZERO
+
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	if not target:
 		target = %PlayerCameraTarget
 	cam.global_transform = pivot.global_transform
@@ -51,6 +54,14 @@ func _physics_process(delta: float) -> void:
 		_follow_target(delta)
 		_apply_rotation(delta)
 	cam.global_transform = pivot.global_transform
+
+func _process(delta: float) -> void:
+	Input.MOUSE_MODE_CONFINED
+	if is_rotating:
+		Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+		return
+	last_mouse_pos = $"../../Viewport".get_viewport().get_mouse_position() # test
+	
 
 func _process_distance(delta: float) -> void:
 	anchor.spring_length = lerp(anchor.spring_length, to_distance, zoom_speed * delta)  # YOU SHOULD LERP THIS SHIT NOW
@@ -68,8 +79,13 @@ func _apply_rotation(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.is_action_pressed("camera_free_look"):
-		yaw += -event.screen_relative.x * mouse_sensitivity
-		
+		yaw -= event.screen_relative.x * mouse_sensitivity
+		is_rotating = true
+	else: is_rotating = false
+	
+	if Input.is_action_just_released("camera_free_look"):
+		Input.warp_mouse(last_mouse_pos)
+
 	if Input.is_action_pressed("camera_zoom_in"):
 		to_distance = clamp(to_distance - zoom_step, min_distance, max_distance)
 	elif Input.is_action_pressed("camera_zoom_out"):

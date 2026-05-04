@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cosvh3hruxhlt" path="res://player/shoot.gd" id="4_yw30f"]
 [ext_resource type="Script" uid="uid://lk73snr6p0i8" path="res://player/photo_camera.gd" id="5_boad6"]
 [ext_resource type="Script" uid="uid://dabwpe6q48abn" path="res://player/item_intercations.gd" id="6_g6k8r"]
+[ext_resource type="Script" uid="uid://cxeti24svqa4b" path="res://player/cursor.gd" id="8_rgyib"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rkbax"]
 
@@ -52,6 +53,19 @@ _data = {
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh265"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_boad6"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0, 0.8, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+shadow_size = 2
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=2015978442]
 
 [node name="eye" type="MeshInstance3D" parent="." unique_id=1084157919]
@@ -78,8 +92,6 @@ shape = SubResource("CapsuleShape3D_sh265")
 [node name="PlayerCameraTarget" type="Marker3D" parent="." unique_id=1975022584]
 unique_name_in_owner = true
 transform = Transform3D(0.9999999, 0, 0, 0, 0.99999976, 0, 0, 0, 0.9999999, 0, 0, 0)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1895561039]
 
 [node name="Viewport" type="CanvasLayer" parent="." unique_id=664075513]
 
@@ -144,6 +156,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5774417, -0.4588905)
 fov = 40.0
 far = 1000.0
 
+[node name="Cursor" type="Control" parent="Viewport" unique_id=790834214]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -573.0
+offset_bottom = -321.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Viewport/Cursor" unique_id=1037112092]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 12.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_boad6")
+
 [node name="Interface" type="Node" parent="." unique_id=326599862]
 
 [node name="Camera" type="Node" parent="Interface" unique_id=417932803 node_paths=PackedStringArray("target")]
@@ -185,5 +223,8 @@ one_shot = true
 
 [node name="PhotoCamera" type="Node" parent="Interface/Action" unique_id=2092572066]
 script = ExtResource("5_boad6")
+
+[node name="Cursor" type="Node" parent="Interface" unique_id=1483291853]
+script = ExtResource("8_rgyib")
 
 [connection signal="timeout" from="Interface/Action/ItemIntercations/EquipTimer" to="Interface/Action/ItemIntercations" method="_on_equip_timer_timeout"]
