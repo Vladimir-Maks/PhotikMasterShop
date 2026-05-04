@@ -38,3 +38,8 @@ use_collision = true
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D" unique_id=998607581]
 size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_lkjt4")
+
+[node name="TestCamBox" type="CSGBox3D" parent="." unique_id=1727818298]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.726023, 1.1473198, -7.5459127)
+size = Vector3(1.8572998, 1.2314453, 2.052002)

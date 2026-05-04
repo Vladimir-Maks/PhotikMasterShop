@@ -184,9 +184,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_boad6")
 
 [node name="Interface" type="Node" parent="." unique_id=326599862]
 
-[node name="Camera" type="Node" parent="Interface" unique_id=417932803 node_paths=PackedStringArray("target")]
+[node name="Camera" type="Node" parent="Interface" unique_id=417932803]
 script = ExtResource("2_yw30f")
-target = NodePath("../../PlayerCameraTarget")
 
 [node name="CameraAnchor" type="SpringArm3D" parent="Interface/Camera" unique_id=1319091088]
 unique_name_in_owner = true
