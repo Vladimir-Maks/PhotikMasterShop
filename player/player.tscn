@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://cn8juecy548cq" path="res://player/ui/photo_screen.tscn" id="2_qjkh3"]
 [ext_resource type="Script" uid="uid://bmfc64ydmj6mh" path="res://player/camera.gd" id="2_yw30f"]
 [ext_resource type="Script" uid="uid://cosvh3hruxhlt" path="res://player/shoot.gd" id="4_yw30f"]
-[ext_resource type="Script" uid="uid://lk73snr6p0i8" path="res://player/photo_camera.gd" id="5_boad6"]
 [ext_resource type="Script" uid="uid://dabwpe6q48abn" path="res://player/item_intercations.gd" id="6_g6k8r"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rkbax"]
@@ -120,25 +119,15 @@ offset_right = 200.0
 offset_bottom = 204.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="Viewport/Control" unique_id=2059072943]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="FPVSubViewportContainer" type="SubViewportContainer" parent="Viewport/Control/CenterContainer" unique_id=1751259741]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="FPVSubViewport" type="SubViewport" parent="Viewport/Control/CenterContainer/FPVSubViewportContainer" unique_id=826408230]
+[node name="FPVSubViewport" type="SubViewport" parent="Viewport/Control" unique_id=826408230]
 unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(400, 408)
-render_target_clear_mode = 1
-render_target_update_mode = 4
+render_target_clear_mode = 2
+render_target_update_mode = 0
 
-[node name="FpsCamera3D" type="Camera3D" parent="Viewport/Control/CenterContainer/FPVSubViewportContainer/FPVSubViewport" unique_id=1815120584]
+[node name="FpsCamera3D" type="Camera3D" parent="Viewport/Control/FPVSubViewport" unique_id=1815120584]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5774417, -0.4588905)
 fov = 40.0
@@ -182,8 +171,5 @@ script = ExtResource("6_g6k8r")
 unique_name_in_owner = true
 wait_time = 0.36
 one_shot = true
-
-[node name="PhotoCamera" type="Node" parent="Interface/Action" unique_id=2092572066]
-script = ExtResource("5_boad6")
 
 [connection signal="timeout" from="Interface/Action/ItemIntercations/EquipTimer" to="Interface/Action/ItemIntercations" method="_on_equip_timer_timeout"]

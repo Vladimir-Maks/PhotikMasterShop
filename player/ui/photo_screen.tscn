@@ -44,7 +44,8 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 358
 theme_override_constants/margin_bottom = 48
 
-[node name="Panel" type="Panel" parent="BorderMarginContainer" unique_id=467151046]
+[node name="PanelBackground" type="Panel" parent="BorderMarginContainer" unique_id=467151046]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_styles/panel = ExtResource("2_swo00")
 
